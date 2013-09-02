@@ -48,6 +48,9 @@
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.statusBar = new System.Windows.Forms.StatusBar();
+            this.menuItemMaximise = new System.Windows.Forms.MenuItem();
+            this.menuItem8 = new System.Windows.Forms.MenuItem();
+            this.menuItemMinimise = new System.Windows.Forms.MenuItem();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -123,6 +126,9 @@
             // 
             this.menuItemWindow.Index = 2;
             this.menuItemWindow.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItemMaximise,
+            this.menuItemMinimise,
+            this.menuItem8,
             this.menuItemCascade,
             this.menuItemArrangeIcons,
             this.menuItemTileH,
@@ -134,31 +140,31 @@
             // 
             // menuItemCascade
             // 
-            this.menuItemCascade.Index = 0;
+            this.menuItemCascade.Index = 3;
             this.menuItemCascade.Text = "&Cascade";
             this.menuItemCascade.Click += new System.EventHandler(this.menuItemCascade_Click);
             // 
             // menuItemArrangeIcons
             // 
-            this.menuItemArrangeIcons.Index = 1;
+            this.menuItemArrangeIcons.Index = 4;
             this.menuItemArrangeIcons.Text = "&Arrange Icons";
             this.menuItemArrangeIcons.Click += new System.EventHandler(this.menuItemArrangeIcons_Click);
             // 
             // menuItemTileH
             // 
-            this.menuItemTileH.Index = 2;
+            this.menuItemTileH.Index = 5;
             this.menuItemTileH.Text = "Tile &Horizontal";
             this.menuItemTileH.Click += new System.EventHandler(this.menuItemTileH_Click);
             // 
             // menuItemTileV
             // 
-            this.menuItemTileV.Index = 3;
+            this.menuItemTileV.Index = 6;
             this.menuItemTileV.Text = "Tile &Vertical";
             this.menuItemTileV.Click += new System.EventHandler(this.menuItemTileV_Click);
             // 
             // menuItem5
             // 
-            this.menuItem5.Index = 4;
+            this.menuItem5.Index = 7;
             this.menuItem5.Text = "-";
             // 
             // menuItem2
@@ -181,6 +187,25 @@
             this.statusBar.Name = "statusBar";
             this.statusBar.Size = new System.Drawing.Size(653, 22);
             this.statusBar.TabIndex = 1;
+            // 
+            // menuItemMaximise
+            // 
+            this.menuItemMaximise.Index = 0;
+            this.menuItemMaximise.Shortcut = System.Windows.Forms.Shortcut.AltUpArrow;
+            this.menuItemMaximise.Text = "Toggle &Maximise";
+            this.menuItemMaximise.Click += new System.EventHandler(this.menuItemMaximise_Click);
+            // 
+            // menuItem8
+            // 
+            this.menuItem8.Index = 2;
+            this.menuItem8.Text = "-";
+            // 
+            // menuItemMinimise
+            // 
+            this.menuItemMinimise.Index = 1;
+            this.menuItemMinimise.Shortcut = System.Windows.Forms.Shortcut.AltDownArrow;
+            this.menuItemMinimise.Text = "Toggle Minimi&se";
+            this.menuItemMinimise.Click += new System.EventHandler(this.menuItemMinimise_Click);
             // 
             // Main
             // 
@@ -220,6 +245,9 @@
         internal System.Windows.Forms.MenuItem menuItemWindow;
         private System.Windows.Forms.MainMenu mainMenu;
         private System.Windows.Forms.MenuItem menuItem7;
+        private System.Windows.Forms.MenuItem menuItemMaximise;
+        private System.Windows.Forms.MenuItem menuItemMinimise;
+        private System.Windows.Forms.MenuItem menuItem8;
 
 
 

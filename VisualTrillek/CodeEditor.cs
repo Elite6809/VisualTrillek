@@ -74,7 +74,7 @@ namespace VisualTrillek
         /// <summary>
         /// Updates the current window title and the Window menu entry for this window.
         /// </summary>
-        private void UpdateWindowTitle()
+        public void UpdateWindowTitle()
         {
             Text = "Editor: " + (FileName ?? "Untitled") +
                 (UnsavedChanges ? "*" : "");
@@ -155,8 +155,9 @@ namespace VisualTrillek
         /// If the user selects yes, the document is saved via the <c>Save()</c> method.
         /// If the user selects cancel, the FormClosingEventArgs.Cancel property is set to true, to the closing operation is halted.
         /// </summary>
+        /// <param name="title">The title fo the dialog box to use.</param>
         /// <returns>The FormClosingEventArgs.Cancel value representing whether the window-closing should be cancelled or not.</returns>
-        public bool ConfirmClose()
+        public bool ConfirmClose(string title = "Close")
         {
             Activate();
             if ((UnsavedChanges && FileName != null) ||
@@ -164,7 +165,7 @@ namespace VisualTrillek
             {
                 DialogResult dr = MessageBox.Show(
                     "You have unsaved changes to " + (ShortFileName ?? "untitled") + ". Do you want to save this document?",
-                    "Close",
+                    title,
                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 if (dr == DialogResult.Yes)
                 {
@@ -245,6 +246,14 @@ namespace VisualTrillek
         private void menuItemSelectAll_Click(object sender, EventArgs e)
         {
             editorControl.ActiveTextAreaControl.TextArea.ClipboardHandler.SelectAll(sender, e);
+        }
+
+        private void menuItemOpenHere_Click(object sender, EventArgs e)
+        {
+            if (!ConfirmClose("Open Here"))
+            {
+                (MdiParent as Main).Open(this);
+            }
         }
     }
 }

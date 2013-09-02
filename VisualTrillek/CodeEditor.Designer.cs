@@ -34,6 +34,7 @@
             this.menuItemSave = new System.Windows.Forms.MenuItem();
             this.mainMenu = new System.Windows.Forms.MainMenu(this.components);
             this.menuItemFile = new System.Windows.Forms.MenuItem();
+            this.menuItemOpenHere = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.menuItemSaveAs = new System.Windows.Forms.MenuItem();
             this.menuItem1 = new System.Windows.Forms.MenuItem();
@@ -69,8 +70,8 @@
             // 
             // menuItemSave
             // 
-            this.menuItemSave.Index = 1;
-            this.menuItemSave.MergeOrder = 11;
+            this.menuItemSave.Index = 2;
+            this.menuItemSave.MergeOrder = 12;
             this.menuItemSave.Shortcut = System.Windows.Forms.Shortcut.CtrlS;
             this.menuItemSave.Text = "&Save";
             this.menuItemSave.Click += new System.EventHandler(this.menuItemSave_Click);
@@ -85,6 +86,7 @@
             // 
             this.menuItemFile.Index = 0;
             this.menuItemFile.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItemOpenHere,
             this.menuItem4,
             this.menuItemSave,
             this.menuItemSaveAs,
@@ -93,31 +95,39 @@
             this.menuItemFile.MergeType = System.Windows.Forms.MenuMerge.MergeItems;
             this.menuItemFile.Text = "&File";
             // 
+            // menuItemOpenHere
+            // 
+            this.menuItemOpenHere.Index = 0;
+            this.menuItemOpenHere.MergeOrder = 2;
+            this.menuItemOpenHere.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftO;
+            this.menuItemOpenHere.Text = "Open &Here...";
+            this.menuItemOpenHere.Click += new System.EventHandler(this.menuItemOpenHere_Click);
+            // 
             // menuItem4
             // 
-            this.menuItem4.Index = 0;
-            this.menuItem4.MergeOrder = 10;
+            this.menuItem4.Index = 1;
+            this.menuItem4.MergeOrder = 11;
             this.menuItem4.Text = "-";
             // 
             // menuItemSaveAs
             // 
-            this.menuItemSaveAs.Index = 2;
-            this.menuItemSaveAs.MergeOrder = 12;
+            this.menuItemSaveAs.Index = 3;
+            this.menuItemSaveAs.MergeOrder = 13;
             this.menuItemSaveAs.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftS;
             this.menuItemSaveAs.Text = "Save &As...";
             this.menuItemSaveAs.Click += new System.EventHandler(this.menuItemSaveAs_Click);
             // 
             // menuItem1
             // 
-            this.menuItem1.Index = 3;
-            this.menuItem1.MergeOrder = 13;
+            this.menuItem1.Index = 4;
+            this.menuItem1.MergeOrder = 14;
             this.menuItem1.Text = "-";
             // 
             // menuItem2
             // 
-            this.menuItem2.Index = 4;
-            this.menuItem2.MergeOrder = 14;
-            this.menuItem2.Text = "&Close";
+            this.menuItem2.Index = 5;
+            this.menuItem2.MergeOrder = 15;
+            this.menuItem2.Text = "&Close Window";
             this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
             // 
             // menuItemEdit
@@ -267,6 +277,7 @@
         private System.Windows.Forms.MenuItem menuItemGoTo;
         private System.Windows.Forms.MenuItem menuItem8;
         private System.Windows.Forms.MenuItem menuItemSelectAll;
+        private System.Windows.Forms.MenuItem menuItemOpenHere;
 
     }
 }

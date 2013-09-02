@@ -134,7 +134,8 @@ namespace VisualTrillek
         /// <summary>
         /// Shows an OpenFileDialog, prompting the user to open a file.
         /// </summary>
-        public void Open()
+        /// <param name="editor">The editor to open the file in, or null to create a new one.</param>
+        public void Open(CodeEditor editor = null)
         {
             Events.Enqueue("Showing open dialog...");
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -142,7 +143,7 @@ namespace VisualTrillek
                 ofd.Filter = Properties.Resources.DialogFilter;
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    Open(ofd.FileName);
+                    Open(ofd.FileName, editor);
                 }
             }
         }
@@ -151,10 +152,23 @@ namespace VisualTrillek
         /// Opens the specified file in an Editor window.
         /// </summary>
         /// <param name="fileName">The filename of the file to open.</param>
-        public void Open(string fileName)
+        /// <param name="editor">The editor to open the file in, or null to create a new one.</param>
+        public void Open(string fileName, CodeEditor editor = null)
         {
             string codeData = File.ReadAllText(fileName);
-            AddEditorWindow(fileName, codeData);
+            if (editor == null)
+            {
+                AddEditorWindow(fileName, codeData);
+            }
+            else
+            {
+                editor.FileName = fileName;
+                editor.editorControl.Text = codeData;
+                editor.editorControl.ActiveTextAreaControl.Caret.Line = 0;
+                editor.editorControl.ActiveTextAreaControl.Caret.Column = 0;
+                editor.UpdateWindowTitle();
+                editor.Activate();
+            }
         }
 
         private void menuItem4_Click(object sender, EventArgs e)
@@ -221,6 +235,30 @@ namespace VisualTrillek
         {
             Welcome.Show();
             Welcome.Activate();
+        }
+
+        public void ToggleWindowMaximise()
+        {
+            ActiveMdiChild.WindowState =
+                ActiveMdiChild.WindowState == FormWindowState.Maximized ?
+                FormWindowState.Normal : FormWindowState.Maximized;
+        }
+
+        public void ToggleWindowMinimise()
+        {
+            ActiveMdiChild.WindowState =
+                ActiveMdiChild.WindowState == FormWindowState.Minimized ?
+                FormWindowState.Normal : FormWindowState.Minimized;
+        }
+
+        private void menuItemMaximise_Click(object sender, EventArgs e)
+        {
+            ToggleWindowMaximise();
+        }
+
+        private void menuItemMinimise_Click(object sender, EventArgs e)
+        {
+            ToggleWindowMinimise();
         }
     }
 }
