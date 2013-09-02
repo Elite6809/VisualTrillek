@@ -1,4 +1,5 @@
-﻿using ICSharpCode.TextEditor.Document;
+﻿using ICSharpCode.TextEditor;
+using ICSharpCode.TextEditor.Document;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -218,6 +219,32 @@ namespace VisualTrillek
         private void menuItemPaste_Click(object sender, EventArgs e)
         {
             editorControl.ActiveTextAreaControl.TextArea.ClipboardHandler.Paste(sender, e);
+        }
+
+        private void menuItemFind_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void menuItemFindNext_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void menuItemReplace_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void menuItemGoTo_Click(object sender, EventArgs e)
+        {
+            Goto gotoDialog = new Goto(editorControl);
+            gotoDialog.ShowDialog();
+        }
+
+        private void menuItemSelectAll_Click(object sender, EventArgs e)
+        {
+            editorControl.ActiveTextAreaControl.TextArea.ClipboardHandler.SelectAll(sender, e);
         }
     }
 }

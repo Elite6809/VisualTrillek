@@ -38,6 +38,7 @@
             this.menuItemExit = new System.Windows.Forms.MenuItem();
             this.menuItemView = new System.Windows.Forms.MenuItem();
             this.menuItem6 = new System.Windows.Forms.MenuItem();
+            this.menuItem7 = new System.Windows.Forms.MenuItem();
             this.menuItemWindow = new System.Windows.Forms.MenuItem();
             this.menuItemCascade = new System.Windows.Forms.MenuItem();
             this.menuItemArrangeIcons = new System.Windows.Forms.MenuItem();
@@ -47,7 +48,6 @@
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.statusBar = new System.Windows.Forms.StatusBar();
-            this.menuItem7 = new System.Windows.Forms.MenuItem();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -113,6 +113,12 @@
             this.menuItem6.Text = "&Events...";
             this.menuItem6.Click += new System.EventHandler(this.menuItem6_Click);
             // 
+            // menuItem7
+            // 
+            this.menuItem7.Index = 1;
+            this.menuItem7.Text = "&Welcome...";
+            this.menuItem7.Click += new System.EventHandler(this.menuItem7_Click);
+            // 
             // menuItemWindow
             // 
             this.menuItemWindow.Index = 2;
@@ -175,12 +181,6 @@
             this.statusBar.Name = "statusBar";
             this.statusBar.Size = new System.Drawing.Size(653, 22);
             this.statusBar.TabIndex = 1;
-            // 
-            // menuItem7
-            // 
-            this.menuItem7.Index = 1;
-            this.menuItem7.Text = "&Welcome...";
-            this.menuItem7.Click += new System.EventHandler(this.menuItem7_Click);
             // 
             // Main
             // 

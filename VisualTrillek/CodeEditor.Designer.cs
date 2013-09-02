@@ -45,6 +45,13 @@
             this.menuItemCut = new System.Windows.Forms.MenuItem();
             this.menuItemCopy = new System.Windows.Forms.MenuItem();
             this.menuItemPaste = new System.Windows.Forms.MenuItem();
+            this.menuItem3 = new System.Windows.Forms.MenuItem();
+            this.menuItemFind = new System.Windows.Forms.MenuItem();
+            this.menuItemFindNext = new System.Windows.Forms.MenuItem();
+            this.menuItemReplace = new System.Windows.Forms.MenuItem();
+            this.menuItemGoTo = new System.Windows.Forms.MenuItem();
+            this.menuItem8 = new System.Windows.Forms.MenuItem();
+            this.menuItemSelectAll = new System.Windows.Forms.MenuItem();
             this.SuspendLayout();
             // 
             // editorControl
@@ -122,7 +129,14 @@
             this.menuItem7,
             this.menuItemCut,
             this.menuItemCopy,
-            this.menuItemPaste});
+            this.menuItemPaste,
+            this.menuItem3,
+            this.menuItemFind,
+            this.menuItemFindNext,
+            this.menuItemReplace,
+            this.menuItemGoTo,
+            this.menuItem8,
+            this.menuItemSelectAll});
             this.menuItemEdit.MergeOrder = 5;
             this.menuItemEdit.Text = "&Edit";
             // 
@@ -166,6 +180,51 @@
             this.menuItemPaste.Text = "Paste";
             this.menuItemPaste.Click += new System.EventHandler(this.menuItemPaste_Click);
             // 
+            // menuItem3
+            // 
+            this.menuItem3.Index = 6;
+            this.menuItem3.Text = "-";
+            // 
+            // menuItemFind
+            // 
+            this.menuItemFind.Index = 7;
+            this.menuItemFind.Shortcut = System.Windows.Forms.Shortcut.CtrlF;
+            this.menuItemFind.Text = "&Find...";
+            this.menuItemFind.Click += new System.EventHandler(this.menuItemFind_Click);
+            // 
+            // menuItemFindNext
+            // 
+            this.menuItemFindNext.Index = 8;
+            this.menuItemFindNext.Shortcut = System.Windows.Forms.Shortcut.F3;
+            this.menuItemFindNext.Text = "Find &Next";
+            this.menuItemFindNext.Click += new System.EventHandler(this.menuItemFindNext_Click);
+            // 
+            // menuItemReplace
+            // 
+            this.menuItemReplace.Index = 9;
+            this.menuItemReplace.Shortcut = System.Windows.Forms.Shortcut.CtrlH;
+            this.menuItemReplace.Text = "Replace...";
+            this.menuItemReplace.Click += new System.EventHandler(this.menuItemReplace_Click);
+            // 
+            // menuItemGoTo
+            // 
+            this.menuItemGoTo.Index = 10;
+            this.menuItemGoTo.Shortcut = System.Windows.Forms.Shortcut.CtrlG;
+            this.menuItemGoTo.Text = "&Go To...";
+            this.menuItemGoTo.Click += new System.EventHandler(this.menuItemGoTo_Click);
+            // 
+            // menuItem8
+            // 
+            this.menuItem8.Index = 11;
+            this.menuItem8.Text = "-";
+            // 
+            // menuItemSelectAll
+            // 
+            this.menuItemSelectAll.Index = 12;
+            this.menuItemSelectAll.Shortcut = System.Windows.Forms.Shortcut.CtrlA;
+            this.menuItemSelectAll.Text = "Select &All";
+            this.menuItemSelectAll.Click += new System.EventHandler(this.menuItemSelectAll_Click);
+            // 
             // CodeEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -201,6 +260,13 @@
         private System.Windows.Forms.MenuItem menuItemCut;
         private System.Windows.Forms.MenuItem menuItemCopy;
         private System.Windows.Forms.MenuItem menuItemPaste;
+        private System.Windows.Forms.MenuItem menuItem3;
+        private System.Windows.Forms.MenuItem menuItemFind;
+        private System.Windows.Forms.MenuItem menuItemFindNext;
+        private System.Windows.Forms.MenuItem menuItemReplace;
+        private System.Windows.Forms.MenuItem menuItemGoTo;
+        private System.Windows.Forms.MenuItem menuItem8;
+        private System.Windows.Forms.MenuItem menuItemSelectAll;
 
     }
 }
