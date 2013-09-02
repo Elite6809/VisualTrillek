@@ -12,3 +12,7 @@ Plugins
 -------
 
 There is plugin functionality via reflection already implemented. Extensibility is one of the goals of this program so I aim to make it as powerful as possible, and besides core functionality, make the entire program modular.
+
+To enable a plugin, put a plugin DLL file (like the sample one provided) into the Plugins\ directory in the same directory as the EXE of the program. The Plugins\ directory is usually auto generated upon execution. The plugin syntax is completely object oriented and uses attributes to help you describe your plugin. It has the power to manipulate the working environment like the main program would.
+
+Event hooks for the main program aren't very extensive at the moment. Feel free to add some of your own.
