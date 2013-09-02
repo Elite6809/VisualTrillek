@@ -132,10 +132,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Program.ico" />
-    <Content Include="Resources\Events.ico" />
-    <Content Include="Resources\ASMFile.ico" />
-    <Content Include="Resources\D16File.ico" />
+    <EmbeddedResource Include="Resources\Program.ico" />
+    <EmbeddedResource Include="Resources\Events.ico" />
+    <EmbeddedResource Include="Resources\ASMFile.ico" />
+    <EmbeddedResource Include="Resources\D16File.ico" />
     <None Include="Resources\VTrillek128.png" />
     <EmbeddedResource Include="Resources\DcpuMode.xshd">
       <SubType>Designer</SubType>
