@@ -13,15 +13,6 @@ namespace VisualTrillek.Plugins
     public class PluginEventArgs<TForm> : PluginEventArgs where TForm : Form
     {
         /// <summary>
-        /// The parent Main window of the form in which the event was fired.
-        /// </summary>
-        public Main MainWindow
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// The window in which the event was fired.
         /// </summary>
         public TForm Window

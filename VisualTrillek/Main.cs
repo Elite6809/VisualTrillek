@@ -105,9 +105,7 @@ namespace VisualTrillek
             Welcome = new Welcome();
             Welcome.MdiParent = this;
             Welcome.Show();
-            Welcome.Location = new Point(
-                (Width - Welcome.Width) / 2,
-                (Height - Welcome.Height) / 2);
+            Welcome.CenterToParent();
             foreach (PluginRepresentation pr in Program.LoadedPlugins)
             {
                 Plugin p = pr.Plugin;
@@ -273,6 +271,12 @@ namespace VisualTrillek
         private void menuItemPlugins_Click(object sender, EventArgs e)
         {
             PluginSettings();
+        }
+
+        private void Main_Resize(object sender, EventArgs e)
+        {
+            if(Welcome != null)
+                Welcome.CenterToParent();
         }
     }
 }

@@ -35,6 +35,7 @@ namespace VisualTrillek
         private void Welcome_Load(object sender, EventArgs e)
         {
             Program.Events.Enqueue("Loaded welcome window");
+            Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -47,6 +48,38 @@ namespace VisualTrillek
         {
             Close();
             (MdiParent as Main).Open();
+        }
+
+        /// <summary>
+        /// Displays the control to the user.
+        /// </summary>
+        public new void Show()
+        {
+            base.Show();
+            CenterToParent();
+        }
+
+        /// <summary>
+        /// Shows the form with the specified owner to the user.
+        /// </summary>
+        /// <param name="owner">
+        /// Any object that implements System.Windows.Forms.IWin32Window and
+        /// represents the top-level window that will own this form.
+        /// </param>
+        public new void Show(IWin32Window owner)
+        {
+            base.Show(owner);
+            CenterToParent();
+        }
+
+        /// <summary>
+        /// Centers the form in the parent.
+        /// </summary>
+        public new void CenterToParent()
+        {
+            this.Location = new Point(
+                (ParentForm.Width - Width) / 2,
+                (ParentForm.Height - Height) / 2);
         }
     }
 }
