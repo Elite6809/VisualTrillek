@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+
+<SyntaxDefinition name="DCPU" extensions=".asm;.d16">
+  <Properties>
+    <Property name="LineComment" value="//"/>
+  </Properties>
+
+  <Digits name="Digits" bold="false" italic="false" color="#994343"/>
+
+  <RuleSets>
+    <RuleSet ignorecase="true">
+      <Delimiters>&amp;&lt;&gt;~!%^*()-+=|\#/{}[]:"' ,	.?</Delimiters>
+
+      <Span name="LineComment" bold="false" italic="true" color="SlateGray" stopateol="true">
+        <Begin>;</Begin>
+      </Span>
+
+      <Span name="String" color="#994343">
+        <Begin>"</Begin>
+        <End>"</End>
+      </Span>
+
+      <MarkFollowing markmarker="true" bold="true" italic="false" color="#444400" bgcolor="#ffffe8">:</MarkFollowing>
+
+      <KeyWords name="Punctuation" bold="true" italic="false" color="Black">
+        <Key word="," />
+        <Key word="[" />
+        <Key word="]" />
+        <Key word="+" />
+        <Key word="-" />
+      </KeyWords>
+
+      <KeyWords name="SpecialMnemonics" bold="true" italic="false" color="#8E70CC">
+        <Key word="dat" />
+        <Key word="hcf" />
+        <Key word="brk" />
+        <Key word="ret" />
+      </KeyWords>
+
+      <KeyWords name="OneOpMnemonics" bold="true" italic="false" color="#3D2570">
+        <Key word="jsr" />
+        <Key word="int" />
+        <Key word="iag" />
+        <Key word="ias" />
+        <Key word="rfi" />
+        <Key word="iaq" />
+        <Key word="hwn" />
+        <Key word="hwq" />
+        <Key word="hwi" />
+      </KeyWords>
+
+      <KeyWords name="TwoOpMnemonics" bold="true" italic="false" color="#253F70">
+        <Key word="set" />
+        <Key word="add" />
+        <Key word="sub" />
+        <Key word="mul" />
+        <Key word="mli" />
+        <Key word="div" />
+        <Key word="dvi" />
+        <Key word="mod" />
+        <Key word="dvi" />
+        <Key word="and" />
+        <Key word="bor" />
+        <Key word="xor" />
+        <Key word="shr" />
+        <Key word="shl" />
+        <Key word="asr" />
+        <Key word="ifb" />
+        <Key word="ifc" />
+        <Key word="ife" />
+        <Key word="ifn" />
+        <Key word="ifg" />
+        <Key word="ifa" />
+        <Key word="ifl" />
+        <Key word="ifu" />
+        <Key word="adx" />
+        <Key word="sbx" />
+        <Key word="sti" />
+        <Key word="std" />
+      </KeyWords>
+
+      <KeyWords name="Registers" color="#80A374" bold="true">
+        <Key word="a" />
+        <Key word="b" />
+        <Key word="c" />
+        <Key word="i" />
+        <Key word="j" />
+        <Key word="x" />
+        <Key word="y" />
+        <Key word="z" />
+        <Key word="sp" />
+        <Key word="pc" />
+        <Key word="ex" />
+      </KeyWords>
+
+      <KeyWords name="ActiveRegisters" color="#74A39D" bold="true">
+        <Key word="push" />
+        <Key word="peek" />
+        <Key word="pick" />
+        <Key word="pop" />
+      </KeyWords>
+    </RuleSet>
+  </RuleSets>
+</SyntaxDefinition>
