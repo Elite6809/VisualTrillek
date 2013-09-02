@@ -36,6 +36,8 @@
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuItem3 = new System.Windows.Forms.MenuItem();
             this.menuItemExit = new System.Windows.Forms.MenuItem();
+            this.menuItemView = new System.Windows.Forms.MenuItem();
+            this.menuItem6 = new System.Windows.Forms.MenuItem();
             this.menuItemWindow = new System.Windows.Forms.MenuItem();
             this.menuItemCascade = new System.Windows.Forms.MenuItem();
             this.menuItemArrangeIcons = new System.Windows.Forms.MenuItem();
@@ -51,6 +53,7 @@
             // 
             this.mainMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItemFile,
+            this.menuItemView,
             this.menuItemWindow,
             this.menuItem2});
             // 
@@ -94,16 +97,30 @@
             this.menuItemExit.Text = "E&xit";
             this.menuItemExit.Click += new System.EventHandler(this.menuItemExit_Click);
             // 
+            // menuItemView
+            // 
+            this.menuItemView.Index = 1;
+            this.menuItemView.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem6});
+            this.menuItemView.Text = "&View";
+            // 
+            // menuItem6
+            // 
+            this.menuItem6.Index = 0;
+            this.menuItem6.Shortcut = System.Windows.Forms.Shortcut.Alt2;
+            this.menuItem6.Text = "&Events...";
+            this.menuItem6.Click += new System.EventHandler(this.menuItem6_Click);
+            // 
             // menuItemWindow
             // 
-            this.menuItemWindow.Index = 1;
+            this.menuItemWindow.Index = 2;
             this.menuItemWindow.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItemCascade,
             this.menuItemArrangeIcons,
             this.menuItemTileH,
             this.menuItemTileV,
             this.menuItem5});
-            this.menuItemWindow.MergeOrder = 20;
+            this.menuItemWindow.MergeOrder = 21;
             this.menuItemWindow.MergeType = System.Windows.Forms.MenuMerge.MergeItems;
             this.menuItemWindow.Text = "&Window";
             // 
@@ -138,10 +155,10 @@
             // 
             // menuItem2
             // 
-            this.menuItem2.Index = 2;
+            this.menuItem2.Index = 3;
             this.menuItem2.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItem4});
-            this.menuItem2.MergeOrder = 21;
+            this.menuItem2.MergeOrder = 22;
             this.menuItem2.Text = "&Help";
             // 
             // menuItem4
@@ -177,7 +194,6 @@
 
         #endregion
 
-        private System.Windows.Forms.MainMenu mainMenu;
         private System.Windows.Forms.MenuItem menuItemFile;
         private System.Windows.Forms.MenuItem menuItemNew;
         private System.Windows.Forms.MenuItem menuItem3;
@@ -191,7 +207,10 @@
         private System.Windows.Forms.MenuItem menuItemTileH;
         private System.Windows.Forms.MenuItem menuItemTileV;
         private System.Windows.Forms.MenuItem menuItem5;
-        public System.Windows.Forms.MenuItem menuItemWindow;
+        private System.Windows.Forms.MenuItem menuItemView;
+        private System.Windows.Forms.MenuItem menuItem6;
+        internal System.Windows.Forms.MenuItem menuItemWindow;
+        private System.Windows.Forms.MainMenu mainMenu;
 
 
 

@@ -56,6 +56,20 @@
     <Compile Include="About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
+    <Compile Include="EventList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EventList.Designer.cs">
+      <DependentUpon>EventList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EventQueue.cs" />
+    <Compile Include="Main.Events.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Plugins\CodeEditorEventArgs.cs" />
+    <Compile Include="Plugins\PluginAttribute.cs" />
+    <Compile Include="Plugins\PluginEventArgs.cs" />
+    <Compile Include="Plugins\Plugin.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -81,6 +95,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CodeEditor.resx">
       <DependentUpon>CodeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventList.resx">
+      <DependentUpon>EventList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

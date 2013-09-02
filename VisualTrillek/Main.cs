@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VisualTrillek.Plugins;
 
 namespace VisualTrillek
 {
@@ -16,12 +17,57 @@ namespace VisualTrillek
     /// </summary>
     public partial class Main : Form
     {
+        internal EventList EventList;
+
+        /// <summary>
+        /// The main menu of this form.
+        /// </summary>
+        public MainMenu MainMenu
+        {
+            get
+            {
+                return mainMenu;
+            }
+            set
+            {
+                mainMenu = value;
+            }
+        }
+
+        /// <summary>
+        /// The event queue to send event notifications to.
+        /// </summary>
+        public static EventQueue<string> Events
+        {
+            get
+            {
+                return Program.Events;
+            }
+            set
+            {
+                Program.Events = value;
+            }
+        }
         /// <summary>
         /// Create a new Main form.
         /// </summary>
         public Main()
         {
+            CallEvent(OnProgramLoad, new PluginEventArgs(this));
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Calls an event with thread safety and null checking.
+        /// </summary>
+        /// <param name="eventHandler">The event handler to call.</param>
+        /// <param name="args">The EventArgs to pass to the event handler.</param>
+        /// <typeparam name="TEventArgs">The type of EventArgs to pass to the event handler.</typeparam>
+        internal void CallEvent<TEventArgs>(EventHandler<TEventArgs> eventHandler, TEventArgs args)
+        {
+            EventHandler<TEventArgs> handler = eventHandler; // thread safety
+            if (handler != null)
+                handler(this, args);
         }
 
         /// <summary>
@@ -31,6 +77,7 @@ namespace VisualTrillek
         private void ConfirmExit()
         {
             Application.Exit();
+            CallEvent(OnProgramExit, new PluginEventArgs(this));
         }
 
         /// <summary>
@@ -53,7 +100,15 @@ namespace VisualTrillek
 
         private void Main_Load(object sender, EventArgs e)
         {
-            
+            EventList = new EventList(Events);
+            EventList.MdiParent = this;
+            EventList.Show();
+            foreach (Plugin p in Program.LoadedPlugins)
+            {
+                p.Main = this;
+                p.Initialize();
+            }
+            CallEvent<PluginEventArgs>(OnProgramLoad, new PluginEventArgs(this));
         }
 
         private void menuItemNew_Click(object sender, EventArgs e)
@@ -144,6 +199,11 @@ namespace VisualTrillek
         private void menuItemUndo_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void menuItem6_Click(object sender, EventArgs e)
+        {
+            EventList.Show();
         }
     }
 }

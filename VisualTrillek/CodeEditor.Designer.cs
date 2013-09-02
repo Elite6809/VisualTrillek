@@ -123,6 +123,7 @@
             this.menuItemCut,
             this.menuItemCopy,
             this.menuItemPaste});
+            this.menuItemEdit.MergeOrder = 5;
             this.menuItemEdit.Text = "&Edit";
             // 
             // menuItemUndo

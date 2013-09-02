@@ -61,6 +61,7 @@ namespace VisualTrillek
             editorControl.VerticalScroll.Visible = false;
             editorControl.ShowEOLMarkers = false;
             UpdateWindowTitle();
+            Program.Events.Enqueue("Loaded editor window for " + (ShortFileName ?? "new document"));
         }
 
         private void editorControl_TextChanged(object sender, EventArgs e)
@@ -74,7 +75,7 @@ namespace VisualTrillek
         /// </summary>
         private void UpdateWindowTitle()
         {
-            Text = (FileName ?? "Untitled") +
+            Text = "Editor: " + (FileName ?? "Untitled") +
                 (UnsavedChanges ? "*" : "");
             windowMenuItem.Text = (ShortFileName ?? "Untitled") +
                 (UnsavedChanges ? "*" : "");
@@ -120,6 +121,7 @@ namespace VisualTrillek
             File.WriteAllText(fileName, editorControl.Text);
             UnsavedChanges = false;
             UpdateWindowTitle();
+            Program.Events.Enqueue("Saved document " + fileName);
         }
 
         private void editorControl_Load(object sender, EventArgs e)
@@ -188,6 +190,7 @@ namespace VisualTrillek
             {
                 if(MdiParent is Main)
                     (MdiParent as Main).menuItemWindow.MenuItems.Remove(windowMenuItem);
+                Program.Events.Enqueue("Closing editor window for " + (ShortFileName ?? "untitled document"));
             }
         }
 
