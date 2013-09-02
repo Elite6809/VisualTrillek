@@ -71,7 +71,7 @@ namespace VisualTrillek.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DCPU-16 Assembly (*.asm, *.d16)|*.asm;*.d16|All files (*.*)|*.
+        ///   Looks up a localized string similar to DCPU-16 Assembly (*.asm)|*.asm|DCPU-16 Binary (*.d16)|*.d16|All files (*.*)|*.
         /// </summary>
         public static string DialogFilter {
             get {
@@ -85,6 +85,16 @@ namespace VisualTrillek.Properties {
         public static string SettingsPath {
             get {
                 return ResourceManager.GetString("SettingsPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap VTrillek128 {
+            get {
+                object obj = ResourceManager.GetObject("VTrillek128", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

@@ -47,6 +47,7 @@
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.statusBar = new System.Windows.Forms.StatusBar();
+            this.menuItem7 = new System.Windows.Forms.MenuItem();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -101,7 +102,8 @@
             // 
             this.menuItemView.Index = 1;
             this.menuItemView.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.menuItem6});
+            this.menuItem6,
+            this.menuItem7});
             this.menuItemView.Text = "&View";
             // 
             // menuItem6
@@ -174,6 +176,12 @@
             this.statusBar.Size = new System.Drawing.Size(653, 22);
             this.statusBar.TabIndex = 1;
             // 
+            // menuItem7
+            // 
+            this.menuItem7.Index = 1;
+            this.menuItem7.Text = "&Welcome...";
+            this.menuItem7.Click += new System.EventHandler(this.menuItem7_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -211,6 +219,7 @@
         private System.Windows.Forms.MenuItem menuItem6;
         internal System.Windows.Forms.MenuItem menuItemWindow;
         private System.Windows.Forms.MainMenu mainMenu;
+        private System.Windows.Forms.MenuItem menuItem7;
 
 
 

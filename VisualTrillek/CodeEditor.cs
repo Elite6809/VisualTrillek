@@ -50,12 +50,12 @@ namespace VisualTrillek
         {
             InitializeComponent();
             windowMenuItem = new MenuItem(ShortFileName, (s, e) => Activate());
-            if(MdiParent is Main)
-                (MdiParent as Main).menuItemWindow.MenuItems.Add(windowMenuItem);
         }
 
         private void CodeEditor_Load(object sender, EventArgs e)
         {
+            if (MdiParent is Main)
+                (MdiParent as Main).menuItemWindow.MenuItems.Add(windowMenuItem);
             editorControl.Font = new Font("Consolas", 10, FontStyle.Regular);
             editorControl.HorizontalScroll.Visible = false;
             editorControl.VerticalScroll.Visible = false;
@@ -84,7 +84,7 @@ namespace VisualTrillek
         /// <summary>
         /// If the FileName property isn't null, save to that location. Otherwise, performs the same action as SaveAs().
         /// </summary>
-        private void Save()
+        public void Save()
         {
             if (FileName == null)
             {
@@ -99,8 +99,9 @@ namespace VisualTrillek
         /// <summary>
         /// Opens a SaveFileDialog, prompting the user to choose as save location, and subsequently save the document to the new filename.
         /// </summary>
-        private void SaveAs()
+        public void SaveAs()
         {
+            Main.Events.Enqueue("Showing save dialog...");
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
                 sfd.Filter = Properties.Resources.DialogFilter;
@@ -116,7 +117,7 @@ namespace VisualTrillek
         /// Save the document to the given filename.
         /// </summary>
         /// <param name="fileName">The filename to save the document to.</param>
-        private void SaveAs(string fileName)
+        public void SaveAs(string fileName)
         {
             File.WriteAllText(fileName, editorControl.Text);
             UnsavedChanges = false;
@@ -154,7 +155,7 @@ namespace VisualTrillek
         /// If the user selects cancel, the FormClosingEventArgs.Cancel property is set to true, to the closing operation is halted.
         /// </summary>
         /// <returns>The FormClosingEventArgs.Cancel value representing whether the window-closing should be cancelled or not.</returns>
-        private bool ConfirmClose()
+        public bool ConfirmClose()
         {
             Activate();
             if ((UnsavedChanges && FileName != null) ||
@@ -190,7 +191,7 @@ namespace VisualTrillek
             {
                 if(MdiParent is Main)
                     (MdiParent as Main).menuItemWindow.MenuItems.Remove(windowMenuItem);
-                Program.Events.Enqueue("Closing editor window for " + (ShortFileName ?? "untitled document"));
+                Program.Events.Enqueue("Closed editor window for " + (ShortFileName ?? "untitled document"));
             }
         }
 

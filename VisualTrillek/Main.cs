@@ -18,6 +18,7 @@ namespace VisualTrillek
     public partial class Main : Form
     {
         internal EventList EventList;
+        internal Welcome Welcome;
 
         /// <summary>
         /// The main menu of this form.
@@ -74,10 +75,9 @@ namespace VisualTrillek
         /// Prompts the user to confirm whether they want to exit.
         /// Nothing's in here because this is handled by the child forms' FormClosing event.
         /// </summary>
-        private void ConfirmExit()
+        public void ConfirmExit()
         {
             Application.Exit();
-            CallEvent(OnProgramExit, new PluginEventArgs(this));
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace VisualTrillek
         /// <param name="fileName">The filename of the file contained in this form.</param>
         /// <param name="codeData">The data in the file to show in the editor control.</param>
         /// <returns></returns>
-        private CodeEditor AddEditorWindow(string fileName = null, string codeData = null)
+        public CodeEditor AddEditorWindow(string fileName = null, string codeData = null)
         {
             CodeEditor editor = new CodeEditor();
             editor.MdiParent = this;
@@ -102,7 +102,12 @@ namespace VisualTrillek
         {
             EventList = new EventList(Events);
             EventList.MdiParent = this;
-            EventList.Show();
+            Welcome = new Welcome();
+            Welcome.MdiParent = this;
+            Welcome.Show();
+            Welcome.Location = new Point(
+                (Width - Welcome.Width) / 2,
+                (Height - Welcome.Height) / 2);
             foreach (Plugin p in Program.LoadedPlugins)
             {
                 p.Main = this;
@@ -129,8 +134,9 @@ namespace VisualTrillek
         /// <summary>
         /// Shows an OpenFileDialog, prompting the user to open a file.
         /// </summary>
-        private void Open()
+        public void Open()
         {
+            Events.Enqueue("Showing open dialog...");
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
                 ofd.Filter = Properties.Resources.DialogFilter;
@@ -145,7 +151,7 @@ namespace VisualTrillek
         /// Opens the specified file in an Editor window.
         /// </summary>
         /// <param name="fileName">The filename of the file to open.</param>
-        private void Open(string fileName)
+        public void Open(string fileName)
         {
             string codeData = File.ReadAllText(fileName);
             AddEditorWindow(fileName, codeData);
@@ -159,7 +165,7 @@ namespace VisualTrillek
         /// <summary>
         /// Shows an About dialog.
         /// </summary>
-        private void About()
+        public void About()
         {
             new About(Icon).ShowDialog();
         }
@@ -173,6 +179,10 @@ namespace VisualTrillek
             catch
             {
                 // TODO: handle stuff here
+            }
+            finally
+            {
+                CallEvent(OnProgramExit, new PluginEventArgs(this));
             }
         }
 
@@ -204,6 +214,13 @@ namespace VisualTrillek
         private void menuItem6_Click(object sender, EventArgs e)
         {
             EventList.Show();
+            EventList.Activate();
+        }
+
+        private void menuItem7_Click(object sender, EventArgs e)
+        {
+            Welcome.Show();
+            Welcome.Activate();
         }
     }
 }

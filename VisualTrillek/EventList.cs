@@ -47,12 +47,12 @@ namespace VisualTrillek
 
         private void EventList_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Program.Events.Enqueue("Closing events window");
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 e.Cancel = true;
                 Hide();
             }
+            Program.Events.Enqueue("Closed events window");
         }
     }
 }
