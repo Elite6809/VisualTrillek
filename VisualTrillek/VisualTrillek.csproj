@@ -73,15 +73,23 @@
     <Compile Include="Main.Events.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Plugins\CodeEditorEventArgs.cs" />
+    <Compile Include="PluginSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PluginSettings.Designer.cs">
+      <DependentUpon>PluginSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\PluginEventArgs.Generic.cs" />
     <Compile Include="Plugins\PluginAttribute.cs" />
     <Compile Include="Plugins\PluginEventArgs.cs" />
     <Compile Include="Plugins\Plugin.cs" />
+    <Compile Include="Plugins\PluginRepresentation.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="StringContainer.cs" />
     <Compile Include="TrillekSyntaxModeProvider.cs" />
     <Compile Include="CodeEditor.cs">
       <SubType>Form</SubType>
@@ -117,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PluginSettings.resx">
+      <DependentUpon>PluginSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

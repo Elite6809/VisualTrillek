@@ -38,7 +38,7 @@ namespace VisualTrillek
         /// <summary>
         /// The event queue to send event notifications to.
         /// </summary>
-        public static EventQueue<string> Events
+        public static new EventQueue<string> Events
         {
             get
             {
@@ -108,8 +108,9 @@ namespace VisualTrillek
             Welcome.Location = new Point(
                 (Width - Welcome.Width) / 2,
                 (Height - Welcome.Height) / 2);
-            foreach (Plugin p in Program.LoadedPlugins)
+            foreach (PluginRepresentation pr in Program.LoadedPlugins)
             {
+                Plugin p = pr.Plugin;
                 p.Main = this;
                 p.Initialize();
             }
@@ -126,7 +127,7 @@ namespace VisualTrillek
             ConfirmExit();
         }
 
-        private void menuItem1_Click(object sender, EventArgs e)
+        private void menuItemOpen_Click(object sender, EventArgs e)
         {
             Open();
         }
@@ -171,17 +172,25 @@ namespace VisualTrillek
             }
         }
 
-        private void menuItem4_Click(object sender, EventArgs e)
-        {
-            About();
-        }
-
         /// <summary>
-        /// Shows an About dialog.
+        /// Shows the About dialog.
         /// </summary>
         public void About()
         {
-            new About(Icon).ShowDialog();
+            new About(Icon).ShowDialog(this);
+        }
+
+        /// <summary>
+        /// Shows the Plugin Settings dialog.
+        /// </summary>
+        public void PluginSettings()
+        {
+            new PluginSettings().ShowDialog(this);
+        }
+
+        private void menuItem4_Click(object sender, EventArgs e)
+        {
+            About();
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -259,6 +268,11 @@ namespace VisualTrillek
         private void menuItemMinimise_Click(object sender, EventArgs e)
         {
             ToggleWindowMinimise();
+        }
+
+        private void menuItemPlugins_Click(object sender, EventArgs e)
+        {
+            PluginSettings();
         }
     }
 }

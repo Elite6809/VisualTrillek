@@ -33,13 +33,18 @@
             this.mainMenu = new System.Windows.Forms.MainMenu(this.components);
             this.menuItemFile = new System.Windows.Forms.MenuItem();
             this.menuItemNew = new System.Windows.Forms.MenuItem();
-            this.menuItem1 = new System.Windows.Forms.MenuItem();
+            this.menuItemOpen = new System.Windows.Forms.MenuItem();
             this.menuItem3 = new System.Windows.Forms.MenuItem();
             this.menuItemExit = new System.Windows.Forms.MenuItem();
             this.menuItemView = new System.Windows.Forms.MenuItem();
             this.menuItem6 = new System.Windows.Forms.MenuItem();
             this.menuItem7 = new System.Windows.Forms.MenuItem();
+            this.menuItemTools = new System.Windows.Forms.MenuItem();
+            this.menuItemPlugins = new System.Windows.Forms.MenuItem();
             this.menuItemWindow = new System.Windows.Forms.MenuItem();
+            this.menuItemMaximise = new System.Windows.Forms.MenuItem();
+            this.menuItemMinimise = new System.Windows.Forms.MenuItem();
+            this.menuItem8 = new System.Windows.Forms.MenuItem();
             this.menuItemCascade = new System.Windows.Forms.MenuItem();
             this.menuItemArrangeIcons = new System.Windows.Forms.MenuItem();
             this.menuItemTileH = new System.Windows.Forms.MenuItem();
@@ -48,9 +53,6 @@
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.statusBar = new System.Windows.Forms.StatusBar();
-            this.menuItemMaximise = new System.Windows.Forms.MenuItem();
-            this.menuItem8 = new System.Windows.Forms.MenuItem();
-            this.menuItemMinimise = new System.Windows.Forms.MenuItem();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -58,6 +60,7 @@
             this.mainMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItemFile,
             this.menuItemView,
+            this.menuItemTools,
             this.menuItemWindow,
             this.menuItem2});
             // 
@@ -66,7 +69,7 @@
             this.menuItemFile.Index = 0;
             this.menuItemFile.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItemNew,
-            this.menuItem1,
+            this.menuItemOpen,
             this.menuItem3,
             this.menuItemExit});
             this.menuItemFile.MergeType = System.Windows.Forms.MenuMerge.MergeItems;
@@ -79,13 +82,13 @@
             this.menuItemNew.Text = "&New";
             this.menuItemNew.Click += new System.EventHandler(this.menuItemNew_Click);
             // 
-            // menuItem1
+            // menuItemOpen
             // 
-            this.menuItem1.Index = 1;
-            this.menuItem1.MergeOrder = 1;
-            this.menuItem1.Shortcut = System.Windows.Forms.Shortcut.CtrlO;
-            this.menuItem1.Text = "&Open...";
-            this.menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
+            this.menuItemOpen.Index = 1;
+            this.menuItemOpen.MergeOrder = 1;
+            this.menuItemOpen.Shortcut = System.Windows.Forms.Shortcut.CtrlO;
+            this.menuItemOpen.Text = "&Open...";
+            this.menuItemOpen.Click += new System.EventHandler(this.menuItemOpen_Click);
             // 
             // menuItem3
             // 
@@ -107,6 +110,7 @@
             this.menuItemView.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItem6,
             this.menuItem7});
+            this.menuItemView.MergeOrder = 20;
             this.menuItemView.Text = "&View";
             // 
             // menuItem6
@@ -122,9 +126,23 @@
             this.menuItem7.Text = "&Welcome...";
             this.menuItem7.Click += new System.EventHandler(this.menuItem7_Click);
             // 
+            // menuItemTools
+            // 
+            this.menuItemTools.Index = 2;
+            this.menuItemTools.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItemPlugins});
+            this.menuItemTools.MergeOrder = 22;
+            this.menuItemTools.Text = "&Tools";
+            // 
+            // menuItemPlugins
+            // 
+            this.menuItemPlugins.Index = 0;
+            this.menuItemPlugins.Text = "&Plugins...";
+            this.menuItemPlugins.Click += new System.EventHandler(this.menuItemPlugins_Click);
+            // 
             // menuItemWindow
             // 
-            this.menuItemWindow.Index = 2;
+            this.menuItemWindow.Index = 3;
             this.menuItemWindow.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItemMaximise,
             this.menuItemMinimise,
@@ -134,9 +152,28 @@
             this.menuItemTileH,
             this.menuItemTileV,
             this.menuItem5});
-            this.menuItemWindow.MergeOrder = 21;
+            this.menuItemWindow.MergeOrder = 23;
             this.menuItemWindow.MergeType = System.Windows.Forms.MenuMerge.MergeItems;
             this.menuItemWindow.Text = "&Window";
+            // 
+            // menuItemMaximise
+            // 
+            this.menuItemMaximise.Index = 0;
+            this.menuItemMaximise.Shortcut = System.Windows.Forms.Shortcut.AltUpArrow;
+            this.menuItemMaximise.Text = "Toggle &Maximise";
+            this.menuItemMaximise.Click += new System.EventHandler(this.menuItemMaximise_Click);
+            // 
+            // menuItemMinimise
+            // 
+            this.menuItemMinimise.Index = 1;
+            this.menuItemMinimise.Shortcut = System.Windows.Forms.Shortcut.AltDownArrow;
+            this.menuItemMinimise.Text = "Toggle Minimi&se";
+            this.menuItemMinimise.Click += new System.EventHandler(this.menuItemMinimise_Click);
+            // 
+            // menuItem8
+            // 
+            this.menuItem8.Index = 2;
+            this.menuItem8.Text = "-";
             // 
             // menuItemCascade
             // 
@@ -169,10 +206,10 @@
             // 
             // menuItem2
             // 
-            this.menuItem2.Index = 3;
+            this.menuItem2.Index = 4;
             this.menuItem2.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItem4});
-            this.menuItem2.MergeOrder = 22;
+            this.menuItem2.MergeOrder = 24;
             this.menuItem2.Text = "&Help";
             // 
             // menuItem4
@@ -187,25 +224,6 @@
             this.statusBar.Name = "statusBar";
             this.statusBar.Size = new System.Drawing.Size(653, 22);
             this.statusBar.TabIndex = 1;
-            // 
-            // menuItemMaximise
-            // 
-            this.menuItemMaximise.Index = 0;
-            this.menuItemMaximise.Shortcut = System.Windows.Forms.Shortcut.AltUpArrow;
-            this.menuItemMaximise.Text = "Toggle &Maximise";
-            this.menuItemMaximise.Click += new System.EventHandler(this.menuItemMaximise_Click);
-            // 
-            // menuItem8
-            // 
-            this.menuItem8.Index = 2;
-            this.menuItem8.Text = "-";
-            // 
-            // menuItemMinimise
-            // 
-            this.menuItemMinimise.Index = 1;
-            this.menuItemMinimise.Shortcut = System.Windows.Forms.Shortcut.AltDownArrow;
-            this.menuItemMinimise.Text = "Toggle Minimi&se";
-            this.menuItemMinimise.Click += new System.EventHandler(this.menuItemMinimise_Click);
             // 
             // Main
             // 
@@ -231,7 +249,7 @@
         private System.Windows.Forms.MenuItem menuItemNew;
         private System.Windows.Forms.MenuItem menuItem3;
         private System.Windows.Forms.MenuItem menuItemExit;
-        private System.Windows.Forms.MenuItem menuItem1;
+        private System.Windows.Forms.MenuItem menuItemOpen;
         private System.Windows.Forms.MenuItem menuItem2;
         private System.Windows.Forms.MenuItem menuItem4;
         private System.Windows.Forms.StatusBar statusBar;
@@ -248,6 +266,8 @@
         private System.Windows.Forms.MenuItem menuItemMaximise;
         private System.Windows.Forms.MenuItem menuItemMinimise;
         private System.Windows.Forms.MenuItem menuItem8;
+        private System.Windows.Forms.MenuItem menuItemTools;
+        private System.Windows.Forms.MenuItem menuItemPlugins;
 
 
 

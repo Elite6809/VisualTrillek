@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace VisualTrillek.Plugins
 {
@@ -20,18 +21,21 @@ namespace VisualTrillek.Plugins
             set;
         }
 
-        public Plugin()
+        /// <summary>
+        /// The LINQ-to-XML settings element which can be used to store plugin-specific settings.
+        /// </summary>
+        public XElement Settings
         {
-
+            get;
+            set;
         }
 
         /// <summary>
         /// Load the plugin.
         /// </summary>
-        /// <param name="main">The main window of the active program.</param>
-        public Plugin(Main main)
+        public Plugin()
         {
-            Main = main;
+
         }
 
         /// <summary>
