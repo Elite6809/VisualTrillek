@@ -61,6 +61,26 @@ namespace VisualTrillek.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon ASMFile {
+            get {
+                object obj = ResourceManager.GetObject("ASMFile", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon D16File {
+            get {
+                object obj = ResourceManager.GetObject("D16File", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         public static byte[] DcpuMode {
@@ -76,6 +96,26 @@ namespace VisualTrillek.Properties {
         public static string DialogFilter {
             get {
                 return ResourceManager.GetString("DialogFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon Events {
+            get {
+                object obj = ResourceManager.GetObject("Events", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon Program {
+            get {
+                object obj = ResourceManager.GetObject("Program", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
