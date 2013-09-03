@@ -86,5 +86,20 @@ namespace VisualTrillek
             }
             Program.Events.Enqueue("Closed find/replace dialog for editor " + Editor.ShortFileName);
         }
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void textBoxReplace_Enter(object sender, EventArgs e)
+        {
+            textBoxReplace.SelectAll();
+        }
+
+        private void textBoxFind_Enter(object sender, EventArgs e)
+        {
+            textBoxFind.SelectAll();
+        }
     }
 }

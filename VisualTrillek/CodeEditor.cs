@@ -79,7 +79,7 @@ namespace VisualTrillek
         /// <param name="codeData">The contsnts of the opened file.</param>
         public void LoadContents(string fileName, string codeData)
         {
-            FileName = FileName;
+            FileName = fileName;
             editorControl.Text = codeData;
             UnsavedChanges = false;
         }

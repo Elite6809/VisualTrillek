@@ -38,6 +38,9 @@
             this.buttonReplaceNext = new System.Windows.Forms.Button();
             this.buttonReplacePrevious = new System.Windows.Forms.Button();
             this.buttonReplaceAll = new System.Windows.Forms.Button();
+            this.buttonClose = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBoxFind
@@ -46,6 +49,7 @@
             this.textBoxFind.Name = "textBoxFind";
             this.textBoxFind.Size = new System.Drawing.Size(335, 23);
             this.textBoxFind.TabIndex = 1;
+            this.textBoxFind.Enter += new System.EventHandler(this.textBoxFind_Enter);
             // 
             // labelFind
             // 
@@ -62,6 +66,7 @@
             this.textBoxReplace.Name = "textBoxReplace";
             this.textBoxReplace.Size = new System.Drawing.Size(335, 23);
             this.textBoxReplace.TabIndex = 3;
+            this.textBoxReplace.Enter += new System.EventHandler(this.textBoxReplace_Enter);
             // 
             // labelReplace
             // 
@@ -132,11 +137,45 @@
             this.buttonReplaceAll.UseVisualStyleBackColor = true;
             this.buttonReplaceAll.Click += new System.EventHandler(this.buttonReplaceAll_Click);
             // 
+            // buttonClose
+            // 
+            this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonClose.Location = new System.Drawing.Point(12, 96);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(68, 23);
+            this.buttonClose.TabIndex = 10;
+            this.buttonClose.Text = "&Close";
+            this.buttonClose.UseVisualStyleBackColor = true;
+            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(137, 71);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(33, 15);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Find:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(119, 100);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(51, 15);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Replace:";
+            // 
             // FindReplace
             // 
+            this.AcceptButton = this.buttonFindNext;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(442, 131);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonReplaceAll);
             this.Controls.Add(this.buttonReplacePrevious);
             this.Controls.Add(this.buttonReplaceNext);
@@ -164,9 +203,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxFind;
         private System.Windows.Forms.Label labelFind;
-        private System.Windows.Forms.TextBox textBoxReplace;
         private System.Windows.Forms.Label labelReplace;
         private System.Windows.Forms.CheckBox checkBoxCaseSensitive;
         private System.Windows.Forms.Button buttonFindNext;
@@ -174,5 +211,10 @@
         private System.Windows.Forms.Button buttonReplaceNext;
         private System.Windows.Forms.Button buttonReplacePrevious;
         private System.Windows.Forms.Button buttonReplaceAll;
+        private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.TextBox textBoxFind;
+        public System.Windows.Forms.TextBox textBoxReplace;
     }
 }

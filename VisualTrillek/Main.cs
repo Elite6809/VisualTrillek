@@ -150,8 +150,7 @@ namespace VisualTrillek
             }
             else
             {
-                editor.FileName = fileName;
-                editor.editorControl.Text = codeData;
+                editor.LoadContents(fileName, codeData);
                 editor.editorControl.ActiveTextAreaControl.Caret.Line = 0;
                 editor.editorControl.ActiveTextAreaControl.Caret.Column = 0;
                 editor.UpdateWindowTitle();
