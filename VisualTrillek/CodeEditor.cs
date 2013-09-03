@@ -19,6 +19,7 @@ namespace VisualTrillek
     public partial class CodeEditor : Form
     {
         private MenuItem windowMenuItem;
+        private int searchIndex;
 
         /// <summary>
         /// Gets or sets the filename of the currently open file in this editor.
@@ -224,12 +225,8 @@ namespace VisualTrillek
 
         private void menuItemFind_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-        }
-
-        private void menuItemFindNext_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
+            SearchVisible(true);
+            textBoxFind.Focus();
         }
 
         private void menuItemReplace_Click(object sender, EventArgs e)
@@ -253,6 +250,101 @@ namespace VisualTrillek
             if (!ConfirmClose("Open Here"))
             {
                 (MdiParent as Main).Open(this);
+                UnsavedChanges = false;
+            }
+        }
+
+        private void textBoxFind_TextChanged(object sender, EventArgs e)
+        {
+            searchIndex = 0;
+        }
+
+        private void buttonCloseFind_Click(object sender, EventArgs e)
+        {
+            SearchVisible(false);
+        }
+
+        public void SearchVisible(bool visible)
+        {
+            panelSearch.Visible = visible;
+            textBoxFind.Text = "";
+        }
+
+        public void SearchNext()
+        {
+            searchIndex = (searchIndex + editorControl.Text.Length) % editorControl.Text.Length;
+            searchIndex = editorControl.Text.IndexOf(textBoxFind.Text, searchIndex, StringComparison.InvariantCultureIgnoreCase);
+            if (searchIndex == -1)
+            {
+                searchIndex = 0;
+                searchIndex = editorControl.Text.IndexOf(textBoxFind.Text, searchIndex, StringComparison.InvariantCultureIgnoreCase);
+                if (searchIndex == -1)
+                {
+                    MessageBox.Show(this, "No occurrence of the string " + textBoxFind.Text, "Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
+            TextLocation
+                l1 = editorControl.Document.OffsetToPosition(searchIndex),
+                l2 = editorControl.Document.OffsetToPosition(searchIndex + textBoxFind.TextLength);
+            editorControl.ActiveTextAreaControl.SelectionManager.SetSelection(l1, l2);
+            editorControl.ActiveTextAreaControl.Caret.Position = l1;
+            editorControl.ActiveTextAreaControl.ScrollToCaret();
+            searchIndex++;
+        }
+
+        public void SearchPrevious()
+        {
+            searchIndex = (searchIndex + editorControl.Text.Length) % editorControl.Text.Length;
+            searchIndex = editorControl.Text.LastIndexOf(textBoxFind.Text, searchIndex, StringComparison.InvariantCultureIgnoreCase);
+            if (searchIndex == -1)
+            {
+                searchIndex = editorControl.Text.Length;
+                searchIndex = editorControl.Text.LastIndexOf(textBoxFind.Text, searchIndex, StringComparison.InvariantCultureIgnoreCase);
+                if (searchIndex == -1)
+                {
+                    MessageBox.Show(this, "No occurrence of the string " + textBoxFind.Text, "Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
+            TextLocation
+                l1 = editorControl.Document.OffsetToPosition(searchIndex),
+                l2 = editorControl.Document.OffsetToPosition(searchIndex + textBoxFind.TextLength);
+            editorControl.ActiveTextAreaControl.SelectionManager.SetSelection(l1, l2);
+            editorControl.ActiveTextAreaControl.Caret.Position = l1;
+            editorControl.ActiveTextAreaControl.ScrollToCaret();
+        }
+
+        private void textBoxFind_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                SearchVisible(false);
+                e.Handled = true;
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                buttonNext.Focus();
+                SearchNext();
+                e.Handled = true;
+            }
+        }
+        private void buttonNext_Click(object sender, EventArgs e)
+        {
+            SearchNext();
+        }
+
+        private void buttonPrevious_Click(object sender, EventArgs e)
+        {
+            SearchPrevious();
+        }
+
+        private void EscapeCloseSearch(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                SearchVisible(false);
+                e.Handled = true;
             }
         }
     }

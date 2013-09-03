@@ -106,6 +106,7 @@ namespace VisualTrillek
             Welcome.MdiParent = this;
             Welcome.Show();
             Welcome.CenterToParent();
+            Welcome.Activate();
             foreach (PluginRepresentation pr in Program.LoadedPlugins)
             {
                 Plugin p = pr.Plugin;
