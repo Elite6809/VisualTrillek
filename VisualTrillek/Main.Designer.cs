@@ -116,13 +116,14 @@
             // menuItem6
             // 
             this.menuItem6.Index = 0;
-            this.menuItem6.Shortcut = System.Windows.Forms.Shortcut.Alt2;
+            this.menuItem6.Shortcut = System.Windows.Forms.Shortcut.F2;
             this.menuItem6.Text = "&Events...";
             this.menuItem6.Click += new System.EventHandler(this.menuItem6_Click);
             // 
             // menuItem7
             // 
             this.menuItem7.Index = 1;
+            this.menuItem7.Shortcut = System.Windows.Forms.Shortcut.AltF1;
             this.menuItem7.Text = "&Welcome...";
             this.menuItem7.Click += new System.EventHandler(this.menuItem7_Click);
             // 
@@ -137,6 +138,7 @@
             // menuItemPlugins
             // 
             this.menuItemPlugins.Index = 0;
+            this.menuItemPlugins.Shortcut = System.Windows.Forms.Shortcut.F3;
             this.menuItemPlugins.Text = "&Plugins...";
             this.menuItemPlugins.Click += new System.EventHandler(this.menuItemPlugins_Click);
             // 

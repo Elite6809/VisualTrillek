@@ -20,6 +20,8 @@ namespace VisualTrillek
     {
         private MenuItem windowMenuItem;
         private int searchIndex;
+        public SearchType LastSearchType = SearchType.None;
+        public FindReplace FindReplace;
 
         /// <summary>
         /// Gets or sets the filename of the currently open file in this editor.
@@ -46,12 +48,24 @@ namespace VisualTrillek
         }
 
         /// <summary>
+        /// Gets the current index at which text has been found.
+        /// </summary>
+        public int SearchIndex
+        {
+            get
+            {
+                return searchIndex;
+            }
+        }
+
+        /// <summary>
         /// Create a new CodeEditor form.
         /// </summary>
         public CodeEditor()
         {
             InitializeComponent();
             windowMenuItem = new MenuItem(ShortFileName, (s, e) => Activate());
+            FindReplace = new FindReplace(this);
         }
 
         private void CodeEditor_Load(object sender, EventArgs e)
@@ -225,13 +239,13 @@ namespace VisualTrillek
 
         private void menuItemFind_Click(object sender, EventArgs e)
         {
-            SearchVisible(true);
+            SetSearchVisible(true);
             textBoxFind.Focus();
         }
 
         private void menuItemReplace_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            FindReplace.Show(this);
         }
 
         private void menuItemGoTo_Click(object sender, EventArgs e)
@@ -261,89 +275,127 @@ namespace VisualTrillek
 
         private void buttonCloseFind_Click(object sender, EventArgs e)
         {
-            SearchVisible(false);
+            SetSearchVisible(false);
         }
 
-        public void SearchVisible(bool visible)
+        /// <summary>
+        /// Sets the visibility of the search bar.
+        /// </summary>
+        /// <param name="visible">Whether the search bar shall be visible or not.</param>
+        public void SetSearchVisible(bool visible)
         {
             panelSearch.Visible = visible;
             textBoxFind.Text = "";
+            /* searchIndex = 0;
+            lastSearchType = LastSearchType.None; */
         }
 
-        public void SearchNext()
+        /// <summary>
+        /// Search forward until SearchString is found.
+        /// </summary>
+        /// <param name="searchString">The string to search for.</param>
+        /// <param name="caseSensitive">Whether the search is case-sensitive or not.</param>
+        /// <param name="message">Whether to display a MessageBox upon failure or not.</param>
+        /// <returns>Returns true if a match was found, otherwise false.</returns>
+        public bool SearchNext(string searchString, bool caseSensitive = false, bool message = true)
         {
+            if (LastSearchType == SearchType.Backward) searchIndex += searchString.Length;
             searchIndex = (searchIndex + editorControl.Text.Length) % editorControl.Text.Length;
-            searchIndex = editorControl.Text.IndexOf(textBoxFind.Text, searchIndex, StringComparison.InvariantCultureIgnoreCase);
+            searchIndex = editorControl.Text.IndexOf(searchString, searchIndex,
+                caseSensitive ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase);
             if (searchIndex == -1)
             {
                 searchIndex = 0;
-                searchIndex = editorControl.Text.IndexOf(textBoxFind.Text, searchIndex, StringComparison.InvariantCultureIgnoreCase);
+                searchIndex = editorControl.Text.IndexOf(searchString, searchIndex,
+                    caseSensitive ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase);
                 if (searchIndex == -1)
                 {
-                    MessageBox.Show(this, "No occurrence of the string " + textBoxFind.Text, "Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
+                    if (message)
+                    {
+                        MessageBox.Show(this, "No occurrence of the string " + searchString, "Search",
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    return false;
                 }
             }
             TextLocation
-                l1 = editorControl.Document.OffsetToPosition(searchIndex),
-                l2 = editorControl.Document.OffsetToPosition(searchIndex + textBoxFind.TextLength);
-            editorControl.ActiveTextAreaControl.SelectionManager.SetSelection(l1, l2);
-            editorControl.ActiveTextAreaControl.Caret.Position = l1;
+                startLocation = editorControl.Document.OffsetToPosition(searchIndex),
+                endLocation = editorControl.Document.OffsetToPosition(searchIndex + searchString.Length);
+            editorControl.ActiveTextAreaControl.SelectionManager.SetSelection(startLocation, endLocation);
+            editorControl.ActiveTextAreaControl.Caret.Position = startLocation;
             editorControl.ActiveTextAreaControl.ScrollToCaret();
-            searchIndex++;
+            searchIndex += searchString.Length;
+            LastSearchType = SearchType.Forward;
+            return true;
         }
 
-        public void SearchPrevious()
+        /// <summary>
+        /// Search backward until SearchString is found.
+        /// </summary>
+        /// <param name="searchString">The string to search for.</param>
+        /// <param name="caseSensitive">Whether the search is case-sensitive or not.</param>
+        /// <param name="message">Whether to display a MessageBox upon failure or not.</param>
+        /// <returns>Returns true if a match was found, otherwise false.</returns>
+        public bool SearchPrevious(string searchString, bool caseSensitive = false, bool message = true)
         {
+            if (LastSearchType == SearchType.Forward) searchIndex -= searchString.Length;
             searchIndex = (searchIndex + editorControl.Text.Length) % editorControl.Text.Length;
-            searchIndex = editorControl.Text.LastIndexOf(textBoxFind.Text, searchIndex, StringComparison.InvariantCultureIgnoreCase);
+            searchIndex = editorControl.Text.LastIndexOf(searchString, searchIndex,
+                caseSensitive ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase);
             if (searchIndex == -1)
             {
                 searchIndex = editorControl.Text.Length;
-                searchIndex = editorControl.Text.LastIndexOf(textBoxFind.Text, searchIndex, StringComparison.InvariantCultureIgnoreCase);
+                searchIndex = editorControl.Text.LastIndexOf(searchString, searchIndex,
+                    caseSensitive ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase);
                 if (searchIndex == -1)
                 {
-                    MessageBox.Show(this, "No occurrence of the string " + textBoxFind.Text, "Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
+                    if (message)
+                    {
+                        MessageBox.Show(this, "No occurrence of the string " + searchString, "Search",
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    return false;
                 }
             }
             TextLocation
-                l1 = editorControl.Document.OffsetToPosition(searchIndex),
-                l2 = editorControl.Document.OffsetToPosition(searchIndex + textBoxFind.TextLength);
-            editorControl.ActiveTextAreaControl.SelectionManager.SetSelection(l1, l2);
-            editorControl.ActiveTextAreaControl.Caret.Position = l1;
+                startLocation = editorControl.Document.OffsetToPosition(searchIndex),
+                endLocation = editorControl.Document.OffsetToPosition(searchIndex + searchString.Length);
+            editorControl.ActiveTextAreaControl.SelectionManager.SetSelection(startLocation, endLocation);
+            editorControl.ActiveTextAreaControl.Caret.Position = startLocation;
             editorControl.ActiveTextAreaControl.ScrollToCaret();
+            LastSearchType = SearchType.Backward;
+            return true;
         }
 
         private void textBoxFind_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
-                SearchVisible(false);
+                SetSearchVisible(false);
                 e.Handled = true;
             }
             else if (e.KeyCode == Keys.Enter)
             {
                 buttonNext.Focus();
-                SearchNext();
+                SearchNext(textBoxFind.Text);
                 e.Handled = true;
             }
         }
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            SearchNext();
+            SearchNext(textBoxFind.Text);
         }
 
         private void buttonPrevious_Click(object sender, EventArgs e)
         {
-            SearchPrevious();
+            SearchPrevious(textBoxFind.Text);
         }
 
         private void EscapeCloseSearch(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
-                SearchVisible(false);
+                SetSearchVisible(false);
                 e.Handled = true;
             }
         }

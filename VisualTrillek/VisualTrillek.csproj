@@ -64,12 +64,19 @@
       <DependentUpon>EventList.cs</DependentUpon>
     </Compile>
     <Compile Include="EventQueue.cs" />
+    <Compile Include="FindReplace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindReplace.Designer.cs">
+      <DependentUpon>FindReplace.cs</DependentUpon>
+    </Compile>
     <Compile Include="Goto.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Goto.Designer.cs">
       <DependentUpon>Goto.cs</DependentUpon>
     </Compile>
+    <Compile Include="LastSearchType.cs" />
     <Compile Include="Main.Events.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EventList.resx">
       <DependentUpon>EventList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindReplace.resx">
+      <DependentUpon>FindReplace.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Goto.resx">
       <DependentUpon>Goto.cs</DependentUpon>

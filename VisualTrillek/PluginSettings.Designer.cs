@@ -40,7 +40,7 @@
             this.checkedListBox.Location = new System.Drawing.Point(12, 27);
             this.checkedListBox.Name = "checkedListBox";
             this.checkedListBox.Size = new System.Drawing.Size(307, 202);
-            this.checkedListBox.TabIndex = 0;
+            this.checkedListBox.TabIndex = 1;
             this.checkedListBox.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox_ItemCheck);
             // 
             // label1
@@ -49,8 +49,8 @@
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(248, 15);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Enable/disable plugins: (effective after restart)";
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Enable/disable &plugins: (effective after restart)";
             // 
             // buttonClose
             // 
