@@ -59,19 +59,6 @@ namespace VisualTrillek
         }
 
         /// <summary>
-        /// Calls an event with thread safety and null checking.
-        /// </summary>
-        /// <param name="eventHandler">The event handler to call.</param>
-        /// <param name="args">The EventArgs to pass to the event handler.</param>
-        /// <typeparam name="TEventArgs">The type of EventArgs to pass to the event handler.</typeparam>
-        internal void CallEvent<TEventArgs>(EventHandler<TEventArgs> eventHandler, TEventArgs args)
-        {
-            EventHandler<TEventArgs> handler = eventHandler; // thread safety
-            if (handler != null)
-                handler(this, args);
-        }
-
-        /// <summary>
         /// Prompts the user to confirm whether they want to exit.
         /// Nothing's in here because this is handled by the child forms' FormClosing event.
         /// </summary>
@@ -88,11 +75,10 @@ namespace VisualTrillek
         /// <returns></returns>
         public CodeEditor AddEditorWindow(string fileName = null, string codeData = null)
         {
-            CodeEditor editor = new CodeEditor();
+            CodeEditor editor = new CodeEditor(this);
             editor.MdiParent = this;
-            editor.editorControl.Text = codeData ?? "";
-            editor.FileName = fileName;
-            editor.UnsavedChanges = false;
+            if (fileName != null && codeData != null)
+                editor.LoadContents(fileName, codeData);
             editor.Show();
             ActivateMdiChild(editor);
             return editor;
@@ -113,11 +99,12 @@ namespace VisualTrillek
                 p.Main = this;
                 p.Initialize();
             }
-            CallEvent<PluginEventArgs>(OnProgramLoad, new PluginEventArgs(this));
+            CallEvent(OnProgramLoad, new PluginEventArgs(this));
         }
 
         private void menuItemNew_Click(object sender, EventArgs e)
         {
+            Welcome.Hide();
             AddEditorWindow();
         }
 
@@ -128,6 +115,7 @@ namespace VisualTrillek
 
         private void menuItemOpen_Click(object sender, EventArgs e)
         {
+            Welcome.Hide();
             Open();
         }
 
@@ -204,7 +192,7 @@ namespace VisualTrillek
             }
             finally
             {
-                CallEvent(OnProgramExit, new PluginEventArgs(this));
+                CallEvent(OnProgramClose, new PluginEventArgs(this));
             }
         }
 

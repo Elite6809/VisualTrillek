@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VisualTrillek.Plugins;
 
 namespace VisualTrillek
 {
@@ -19,6 +20,7 @@ namespace VisualTrillek
     public partial class CodeEditor : Form
     {
         private MenuItem windowMenuItem;
+        private Main parentForm;
         private int searchIndex;
         public SearchType LastSearchType = SearchType.None;
         public FindReplace FindReplace;
@@ -61,17 +63,30 @@ namespace VisualTrillek
         /// <summary>
         /// Create a new CodeEditor form.
         /// </summary>
-        public CodeEditor()
+        public CodeEditor(Main parent)
         {
             InitializeComponent();
             windowMenuItem = new MenuItem(ShortFileName, (s, e) => Activate());
             FindReplace = new FindReplace(this);
+            parentForm = parent;
+            parentForm.FireOnCodeEditorLoad(this);
+        }
+
+        /// <summary>
+        /// Loads the contents of a file into the editor window.
+        /// </summary>
+        /// <param name="fileName">The filename of the opened file.</param>
+        /// <param name="codeData">The contsnts of the opened file.</param>
+        public void LoadContents(string fileName, string codeData)
+        {
+            FileName = FileName;
+            editorControl.Text = codeData;
+            UnsavedChanges = false;
         }
 
         private void CodeEditor_Load(object sender, EventArgs e)
         {
-            if (MdiParent is Main)
-                (MdiParent as Main).menuItemWindow.MenuItems.Add(windowMenuItem);
+            parentForm.menuItemWindow.MenuItems.Add(windowMenuItem);
             editorControl.Font = new Font("Consolas", 10, FontStyle.Regular);
             editorControl.HorizontalScroll.Visible = false;
             editorControl.VerticalScroll.Visible = false;
@@ -206,8 +221,8 @@ namespace VisualTrillek
         {
             if (!(e.Cancel = ConfirmClose()))
             {
-                if(MdiParent is Main)
-                    (MdiParent as Main).menuItemWindow.MenuItems.Remove(windowMenuItem);
+                parentForm.menuItemWindow.MenuItems.Remove(windowMenuItem);
+                parentForm.FireOnCodeEditorClose(this);
                 Program.Events.Enqueue("Closed editor window for " + (ShortFileName ?? "untitled document"));
             }
         }
@@ -263,7 +278,7 @@ namespace VisualTrillek
         {
             if (!ConfirmClose("Open Here"))
             {
-                (MdiParent as Main).Open(this);
+                parentForm.Open(this);
                 UnsavedChanges = false;
             }
         }
