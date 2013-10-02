@@ -56,6 +56,10 @@ namespace VisualTrillek
         {
             CallEvent(OnProgramLoad, new PluginEventArgs(this));
             InitializeComponent();
+            EventList = new EventList(Events);
+            EventList.MdiParent = this;
+            Welcome = new Welcome();
+            Welcome.MdiParent = this;
         }
 
         /// <summary>
@@ -86,10 +90,6 @@ namespace VisualTrillek
 
         private void Main_Load(object sender, EventArgs e)
         {
-            EventList = new EventList(Events);
-            EventList.MdiParent = this;
-            Welcome = new Welcome();
-            Welcome.MdiParent = this;
             Welcome.Show();
             Welcome.CenterToParent();
             Welcome.Activate();

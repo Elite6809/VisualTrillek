@@ -24,7 +24,7 @@ namespace VisualTrillek
             set;
         }
 
-        public static EventQueue<string> Events = new EventQueue<string>();
+        public static EventQueue<string> Events;
 
         /// <summary>
         /// The main entry point for the application.
@@ -32,11 +32,16 @@ namespace VisualTrillek
         [STAThread]
         static void Main()
         {
-            LoadSettings();
-            LoadPlugins();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main());
+
+            Events = new EventQueue<string>();
+            Main main = new Main();
+            Events.Updated += (sender, e) => main.FireOnEventLogged(main.EventList);
+
+            LoadSettings();
+            LoadPlugins();
+            Application.Run(main);
         }
 
         /// <summary>

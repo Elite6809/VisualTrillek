@@ -70,6 +70,20 @@ namespace VisualTrillek
         }
 
         /// <summary>
+        /// The event fired when a code editor is closed.
+        /// </summary>
+        public event EventHandler<PluginEventArgs<EventList>> OnEventLogged;
+
+        /// <summary>
+        /// Fires the OnEventLogged event.
+        /// </summary>
+        /// <param name="editor">The associated form.</param>
+        internal void FireOnEventLogged(EventList eventList)
+        {
+            CallEvent(OnEventLogged, new PluginEventArgs<EventList>(EventList));
+        }
+
+        /// <summary>
         /// Calls an event with thread safety and null checking.
         /// </summary>
         /// <param name="eventHandler">The event handler to call.</param>
