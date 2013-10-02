@@ -31,17 +31,18 @@ namespace VisualTrillek
 
         private void About_Load(object sender, EventArgs e)
         {
-            Assembly a = Assembly.GetExecutingAssembly();
-            AssemblyTitleAttribute ata = a.GetCustomAttribute<AssemblyTitleAttribute>();
-            AssemblyFileVersionAttribute ava = a.GetCustomAttribute<AssemblyFileVersionAttribute>();
-            AssemblyDescriptionAttribute ada = a.GetCustomAttribute<AssemblyDescriptionAttribute>();
-            AssemblyCompanyAttribute aca = a.GetCustomAttribute<AssemblyCompanyAttribute>();
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            AssemblyTitleAttribute title = assembly.GetCustomAttribute<AssemblyTitleAttribute>();
+            AssemblyFileVersionAttribute fileVersion = assembly.GetCustomAttribute<AssemblyFileVersionAttribute>();
+            AssemblyDescriptionAttribute description = assembly.GetCustomAttribute<AssemblyDescriptionAttribute>();
+            AssemblyCompanyAttribute company = assembly.GetCustomAttribute<AssemblyCompanyAttribute>();
 
-            labelTitle.Text += ata.Title +
+            labelTitle.Text += title.Title +
                 " - " +
-                ava.Version;
-            labelDescription.Text += ada.Description;
-            labelAuthor.Text += aca.Company;
+                fileVersion.Version;
+            labelDescription.Text += description.Description;
+            labelAuthor.Text += company.Company;
+            labelDisclaimer.Text += Properties.Resources.AboutDisclaimer;
         }
 
         private void labelAuthor_Click(object sender, EventArgs e)

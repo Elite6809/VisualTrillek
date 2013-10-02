@@ -33,6 +33,7 @@
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelAuthor = new System.Windows.Forms.Label();
             this.labelDescription = new System.Windows.Forms.Label();
+            this.labelDisclaimer = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,6 +47,7 @@
             // 
             // buttonClose
             // 
+            this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonClose.Location = new System.Drawing.Point(352, 94);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(75, 23);
@@ -82,6 +84,15 @@
             this.labelDescription.Size = new System.Drawing.Size(374, 30);
             this.labelDescription.TabIndex = 4;
             // 
+            // labelDisclaimer
+            // 
+            this.labelDisclaimer.AutoSize = true;
+            this.labelDisclaimer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDisclaimer.Location = new System.Drawing.Point(12, 98);
+            this.labelDisclaimer.Name = "labelDisclaimer";
+            this.labelDisclaimer.Size = new System.Drawing.Size(0, 15);
+            this.labelDisclaimer.TabIndex = 5;
+            // 
             // About
             // 
             this.AcceptButton = this.buttonClose;
@@ -89,6 +100,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(439, 129);
+            this.Controls.Add(this.labelDisclaimer);
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.labelAuthor);
             this.Controls.Add(this.labelTitle);
@@ -116,5 +128,6 @@
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Label labelAuthor;
         private System.Windows.Forms.Label labelDescription;
+        private System.Windows.Forms.Label labelDisclaimer;
     }
 }

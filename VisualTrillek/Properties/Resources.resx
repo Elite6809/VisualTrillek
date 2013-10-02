@@ -142,4 +142,7 @@
   <data name="Program" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Program.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AboutDisclaimer" xml:space="preserve">
+    <value>This project is not affiliated with the games 'Trillek' or '0x10c'.</value>
+  </data>
 </root>
