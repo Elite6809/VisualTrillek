@@ -220,13 +220,13 @@ namespace VisualTrillek
 
         }
 
-        private void menuItem6_Click(object sender, EventArgs e)
+        private void menuItemEvents_Click(object sender, EventArgs e)
         {
             EventList.Show();
             EventList.Activate();
         }
 
-        private void menuItem7_Click(object sender, EventArgs e)
+        private void menuItemWelcome_Click(object sender, EventArgs e)
         {
             Welcome.Show();
             Welcome.Activate();

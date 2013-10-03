@@ -37,8 +37,8 @@
             this.menuItem3 = new System.Windows.Forms.MenuItem();
             this.menuItemExit = new System.Windows.Forms.MenuItem();
             this.menuItemView = new System.Windows.Forms.MenuItem();
-            this.menuItem6 = new System.Windows.Forms.MenuItem();
-            this.menuItem7 = new System.Windows.Forms.MenuItem();
+            this.menuItemEvents = new System.Windows.Forms.MenuItem();
+            this.menuItemWelcome = new System.Windows.Forms.MenuItem();
             this.menuItemTools = new System.Windows.Forms.MenuItem();
             this.menuItemPlugins = new System.Windows.Forms.MenuItem();
             this.menuItemWindow = new System.Windows.Forms.MenuItem();
@@ -108,24 +108,24 @@
             // 
             this.menuItemView.Index = 1;
             this.menuItemView.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.menuItem6,
-            this.menuItem7});
+            this.menuItemEvents,
+            this.menuItemWelcome});
             this.menuItemView.MergeOrder = 20;
             this.menuItemView.Text = "&View";
             // 
-            // menuItem6
+            // menuItemEvents
             // 
-            this.menuItem6.Index = 0;
-            this.menuItem6.Shortcut = System.Windows.Forms.Shortcut.F2;
-            this.menuItem6.Text = "&Events...";
-            this.menuItem6.Click += new System.EventHandler(this.menuItem6_Click);
+            this.menuItemEvents.Index = 0;
+            this.menuItemEvents.Shortcut = System.Windows.Forms.Shortcut.F2;
+            this.menuItemEvents.Text = "&Events...";
+            this.menuItemEvents.Click += new System.EventHandler(this.menuItemEvents_Click);
             // 
-            // menuItem7
+            // menuItemWelcome
             // 
-            this.menuItem7.Index = 1;
-            this.menuItem7.Shortcut = System.Windows.Forms.Shortcut.AltF1;
-            this.menuItem7.Text = "&Welcome...";
-            this.menuItem7.Click += new System.EventHandler(this.menuItem7_Click);
+            this.menuItemWelcome.Index = 1;
+            this.menuItemWelcome.Shortcut = System.Windows.Forms.Shortcut.AltF1;
+            this.menuItemWelcome.Text = "&Welcome...";
+            this.menuItemWelcome.Click += new System.EventHandler(this.menuItemWelcome_Click);
             // 
             // menuItemTools
             // 
@@ -262,10 +262,10 @@
         private System.Windows.Forms.MenuItem menuItemTileV;
         private System.Windows.Forms.MenuItem menuItem5;
         private System.Windows.Forms.MenuItem menuItemView;
-        private System.Windows.Forms.MenuItem menuItem6;
+        private System.Windows.Forms.MenuItem menuItemEvents;
         internal System.Windows.Forms.MenuItem menuItemWindow;
         private System.Windows.Forms.MainMenu mainMenu;
-        private System.Windows.Forms.MenuItem menuItem7;
+        private System.Windows.Forms.MenuItem menuItemWelcome;
         private System.Windows.Forms.MenuItem menuItemMaximise;
         private System.Windows.Forms.MenuItem menuItemMinimise;
         private System.Windows.Forms.MenuItem menuItem8;
