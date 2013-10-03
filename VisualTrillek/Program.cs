@@ -12,18 +12,27 @@ namespace VisualTrillek
 {
     static class Program
     {
+        /// <summary>
+        /// The root Settings node of the program.
+        /// </summary>
         public static XDocument Settings
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// A list of loaded plugins.
+        /// </summary>
         public static List<PluginRepresentation> LoadedPlugins
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// An EventQueue&lt;string&gt; of events.
+        /// </summary>
         public static EventQueue<string> Events;
 
         /// <summary>
@@ -40,7 +49,7 @@ namespace VisualTrillek
             Events.Updated += (sender, e) => main.FireOnEventLogged(main.EventList);
 
             LoadSettings();
-            LoadPlugins();
+            CheckForPlugins();
             Application.Run(main);
         }
 
@@ -92,34 +101,50 @@ namespace VisualTrillek
             if (element.Length > 0 || returnNullIfNotExists)
             {
                 return element.First();
+                // if returnNullIfNotExists, this will be called regardless,
+                // meaning that a null will be returned if element.Length == 0
             }
             else
             {
-                DialogResult result = MessageBox.Show(
-                    "Plugin " + attribute.PluginName + " by " + attribute.PluginAuthor + " has not been used before.\r\n" +
-                    "Do you want to enable this plugin? Click Cancel to skip this plugin.", "Enable Plugin",
-                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                if (result != DialogResult.Cancel)
-                {
-                    Settings.Root
-                        .Element("plugins")
-                        .Add(new XElement("plugin",
-                            new XAttribute("name", attribute.PluginName),
-                            new XAttribute("author", attribute.PluginAuthor),
-                            new XElement("enabled", result == DialogResult.Yes)));
-                    return GetSettingsElementFor(plugin, attribute, true);
-                }
-                else
-                {
-                    return null;
-                }
+                return GetNewSettingsElementFor(plugin, attribute);
             }
         }
 
         /// <summary>
-        /// Loads the program's plugins.
+        /// Prompts the user if they want to enable a new plugin, disable a new plugin, or skip loading it.
+        /// The plugin will be processed according to the user's input.
         /// </summary>
-        static void LoadPlugins()
+        /// <param name="plugin">The plugin to load.</param>
+        /// <param name="attribute">The PluginAttribute representing the plugin to load.</param>
+        /// <returns>A new XElement object representing the plugin and its' settings, or null if the user chose not to load it.</returns>
+        private static XElement GetNewSettingsElementFor(Plugin plugin, PluginAttribute attribute)
+        {
+            DialogResult result = MessageBox.Show(
+                "Plugin " + attribute.PluginName + " by " + attribute.PluginAuthor + " has not been used before.\r\n" +
+                "Do you want to enable this plugin? Click Cancel to skip this plugin.", "Enable Plugin",
+                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+            if (result != DialogResult.Cancel)
+            {
+                Settings.Root
+                    .Element("plugins")
+                    .Add(new XElement("plugin",
+                        new XAttribute("name", attribute.PluginName),
+                        new XAttribute("author", attribute.PluginAuthor),
+                        new XElement("enabled", result == DialogResult.Yes)));
+                return GetSettingsElementFor(plugin, attribute, true);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Checks to see a if a Plugins directory exists.
+        /// If it does, LoadPlugins() is called.
+        /// If not, the directory is created and nothing is loaded.
+        /// </summary>
+        static void CheckForPlugins()
         {
             LoadedPlugins = new List<PluginRepresentation>();
             if (Directory.Exists("Plugins"))
@@ -129,20 +154,7 @@ namespace VisualTrillek
                     .ToArray();
                 if (files.Length > 0)
                 {
-                    Events.Enqueue(files.Length.ToString() + " plugins found");
-                    foreach (string file in files)
-                    {
-                        string shortName = file.Split('\\', '/').Last();
-                        try
-                        {
-                            Assembly a = Assembly.LoadFrom(file);
-                            LoadPlugins(a.GetName().Name, a.GetTypes());
-                        }
-                        catch (BadImageFormatException)
-                        {
-                            Events.Enqueue("Not a plugin: " + shortName);
-                        }
-                    }
+                    LoadPlugins(files);
                 }
                 else
                 {
@@ -153,6 +165,27 @@ namespace VisualTrillek
             {
                 Events.Enqueue("No plugin directory found, creating");
                 Directory.CreateDirectory("Plugins");
+            }
+        }
+
+        /// <summary>
+        /// Loads the program's plugins.
+        /// </summary>
+        private static void LoadPlugins(string[] files)
+        {
+            Events.Enqueue(files.Length.ToString() + " plugins found");
+            foreach (string file in files)
+            {
+                string shortName = file.Split('\\', '/').Last();
+                try
+                {
+                    Assembly a = Assembly.LoadFrom(file);
+                    LoadPlugins(a.GetName().Name, a.GetTypes());
+                }
+                catch (BadImageFormatException)
+                {
+                    Events.Enqueue("Not a plugin: " + shortName);
+                }
             }
         }
 
@@ -169,39 +202,30 @@ namespace VisualTrillek
                         .Element("enabledByDefault").Value.ToLower() == "true";
             foreach (Type t in types)
             {
-                if (t.BaseType == typeof(Plugin))
+                LoadPlugin(t);
+            }
+        }
+
+        /// <summary>
+        /// Attempts to load a plugin from a System.Type object.
+        /// This checks to see whether the Type represents a Plugin object first.
+        /// Then it extracts its attributes, creates a Plugin object from it and calls LoadPlugin().
+        /// </summary>
+        /// <param name="pluginType">The System.Type object representing the plugin.</param>
+        private static void LoadPlugin(Type pluginType)
+        {
+            if (pluginType.BaseType == typeof(Plugin))
+            {
+                Plugin newPlugin = Activator.CreateInstance(pluginType) as Plugin;
+                PluginAttribute attribute = pluginType.GetCustomAttribute<PluginAttribute>();
+                newPlugin.Settings = GetSettingsElementFor(newPlugin, attribute);
+                if (newPlugin.Settings != null)
                 {
-                    Plugin newPlugin = Activator.CreateInstance(t) as Plugin;
-                    PluginAttribute attribute = t.GetCustomAttribute<PluginAttribute>();
-                    newPlugin.Settings = GetSettingsElementFor(newPlugin, attribute);
-                    if (newPlugin.Settings != null)
-                    {
-                        bool enablePlugin = newPlugin.Settings
-                            .Element("enabled")
-                            .Value.ToLower() == "true";
-                        if (enablePlugin)
-                        {
-                            if (attribute != null)
-                            {
-                                LoadPlugin(newPlugin,
-                                    attribute.PluginName,
-                                    attribute.PluginVersion,
-                                    attribute.PluginAuthor);
-                            }
-                            else
-                            {
-                                Events.Enqueue("Missing attributes for " + t.Name);
-                            }
-                        }
-                        else
-                        {
-                            Events.Enqueue("Plugin disabled: " + t.Name);
-                        }
-                    }
-                    else
-                    {
-                        Events.Enqueue("Plugin skipped: " + t.Name);
-                    }
+                    LoadPlugin(pluginType, newPlugin, attribute);
+                }
+                else
+                {
+                    Events.Enqueue("Plugin skipped: " + pluginType.Name);
                 }
             }
         }
@@ -209,11 +233,42 @@ namespace VisualTrillek
         /// <summary>
         /// Load a specific plugin into program memory.
         /// </summary>
+        /// <param name="pluginType">The System.Type object representing the plugin.</param>
+        /// <param name="newPlugin">The plugin as an object.</param>
+        /// <param name="attribute">The attribute representing the plugin's details.</param>
+        private static void LoadPlugin(Type pluginType, Plugin newPlugin, PluginAttribute attribute)
+        {
+            bool enablePlugin = newPlugin.Settings
+                .Element("enabled")
+                .Value.ToLower() == "true";
+            if (enablePlugin)
+            {
+                if (attribute != null)
+                {
+                    AddPluginToList(newPlugin,
+                        attribute.PluginName,
+                        attribute.PluginVersion,
+                        attribute.PluginAuthor);
+                }
+                else
+                {
+                    Events.Enqueue("Missing attributes for " + pluginType.Name);
+                }
+            }
+            else
+            {
+                Events.Enqueue("Plugin disabled: " + pluginType.Name);
+            }
+        }
+
+        /// <summary>
+        /// Adds a plugin to the list of loaded plugins.
+        /// </summary>
         /// <param name="plugin">The plugin to load.</param>
         /// <param name="pluginName">The name of the plugin.</param>
         /// <param name="pluginVersion">The version of the plugin.</param>
         /// <param name="pluginAuthor">The author of the plugin.</param>
-        static void LoadPlugin(Plugin plugin, string pluginName, string pluginVersion, string pluginAuthor = "Anonymous")
+        static void AddPluginToList(Plugin plugin, string pluginName, string pluginVersion, string pluginAuthor = "Anonymous")
         {
             LoadedPlugins.Add(new PluginRepresentation(
                 plugin,
