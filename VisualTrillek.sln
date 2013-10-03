@@ -9,6 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPlugin", "TestPlugin\Te
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C099D9B3-C582-48B1-9171-530504C5E4AA}"
 	ProjectSection(SolutionItems) = preProject
+		GPL.md = GPL.md
 		README.md = README.md
 	EndProjectSection
 EndProject
