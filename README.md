@@ -16,3 +16,8 @@ There is plugin functionality via reflection already implemented. Extensibility 
 To enable a plugin, put a plugin DLL file (like the sample one provided) into the Plugins\ directory in the same directory as the EXE of the program. The Plugins\ directory is usually auto generated upon execution. The plugin syntax is completely object oriented and uses attributes to help you describe your plugin. It has the power to manipulate the working environment like the main program would.
 
 Event hooks for the main program aren't very extensive at the moment. Feel free to add some of your own.
+
+Information
+-----------
+
+Please note that this project is in no way affiliated with Microsoft, or the games *Trillek* and *0x10^c*.
