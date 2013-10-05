@@ -170,6 +170,10 @@ namespace VisualTrillek
 
         /// <summary>
         /// Loads the program's plugins.
+        /// <param name="files">
+        /// A list of files to attempt to load as plugins.
+        /// Any non-plugin files are skipped.
+        /// </param>
         /// </summary>
         private static void LoadPlugins(string[] files)
         {

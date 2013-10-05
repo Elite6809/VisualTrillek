@@ -59,21 +59,35 @@ namespace VisualTrillek
 
         private void buttonReplaceAll_Click(object sender, EventArgs e)
         {
-            if (Editor.SearchPrevious(textBoxFind.Text, checkBoxCaseSensitive.Checked, false))
+            ReplaceAll(textBoxFind.Text, textBoxReplace.Text);
+        }
+
+        /// <summary>
+        /// Replaces all instances of a search string with the replacement string,
+        /// and optionally shows information regarding the status of the search.
+        /// </summary>
+        /// <param name="searchString">The text to search for.</param>
+        /// <param name="replaceString">The text to replace with.</param>
+        /// <param name="showInformation">True if information MessageBoxes should be displayed.</param>
+        public void ReplaceAll(string searchString, string replaceString, bool showInformation = true)
+        {
+            if (Editor.SearchPrevious(searchString, checkBoxCaseSensitive.Checked, false))
             {
                 int found = 0;
                 do
                 {
                     found++;
                     Editor.editorControl.Document.Replace(Editor.SearchIndex,
-                    textBoxFind.TextLength,
-                    textBoxReplace.Text);
-                } while (Editor.SearchPrevious(textBoxFind.Text, checkBoxCaseSensitive.Checked, false));
-                MessageBox.Show(this, "Replaced " + found.ToString() + " occurrences.", "Replace", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    searchString.Length,
+                    replaceString);
+                } while (Editor.SearchPrevious(searchString, checkBoxCaseSensitive.Checked, false));
+                if(showInformation)
+                    MessageBox.Show(this, "Replaced " + found.ToString() + " occurrences.", "Replace", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show(this, "No occurrences found.", "Replace", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                if (showInformation)
+                    MessageBox.Show(this, "No occurrences found.", "Replace", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
