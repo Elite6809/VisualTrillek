@@ -21,6 +21,7 @@
       </Span>
 
       <MarkFollowing markmarker="true" bold="true" italic="false" color="#444400" bgcolor="#ffffe8">:</MarkFollowing>
+      <MarkFollowing markmarker="true" bold="true" italic="false" color="#440044" bgcolor="#ffe8ff">.</MarkFollowing>
 
       <KeyWords name="Punctuation" bold="true" italic="false" color="Black">
         <Key word="," />
@@ -91,6 +92,7 @@
         <Key word="sp" />
         <Key word="pc" />
         <Key word="ex" />
+        <Key word="$" />
       </KeyWords>
 
       <KeyWords name="ActiveRegisters" color="#74A39D" bold="true">
